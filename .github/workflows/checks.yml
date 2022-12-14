@@ -7,12 +7,14 @@ jobs:
   test-lint:
     name: Test and Lint
     runs-on: ubuntu-20.04
+
     steps:
+      - uses: actions/checkout@v2.3.4
       - name: Login to Docker Hub
-        uses: actions/checkout@v1
-        run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
-          # username: ${{ secrets.DOCKERHUB_USER }}
-          # password: ${{ secrets.DOCKERHUB_TOKEN }}
+        # run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
+      - users: docker/login-action@v1.6.0  
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Test
