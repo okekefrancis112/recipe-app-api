@@ -318,10 +318,10 @@ class PrivateRecipeTests(TestCase):
         """Test creating a new recipe with an existing ingredient."""
         ingredient = Ingredient.objects.create(user=self.user, name='Lemon')
         payload = {
-            'title': 'Cauliflower Tacos',
-            'time_minutes': 60,
+            'title': 'Vietnamese soup',
+            'time_minutes': 25,
             'price': Decimal('4.30'),
-            'ingredients': [{'name': 'Cauliflower'}, {'name': 'Salt'}],
+            'ingredients': [{'name': 'Lemon'}, {'name': 'Fish Sauce'}],
         }
         res = self.client.post(RECIPES_URL, payload, format='json')
 
