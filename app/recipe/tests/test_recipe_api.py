@@ -250,3 +250,4 @@ class PrivateRecipeTests(TestCase):
                 user=self.user
             ).exists()
             self.assertTrue(exists)
+            
