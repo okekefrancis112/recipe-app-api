@@ -29,7 +29,7 @@ from recipe import serializers
 
 @extend_schema_view(
     list=extend_schema(
-        parameters = [
+        parameters=[
             OpenApiParameter(
                 'tags',
                 OpenApiTypes.STR,
@@ -100,9 +100,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
     list=extend_schema(
         parameters=[
             OpenApiParameter(
-            'assigned_only',
-            OpenApiTypes.INT, enum=[0, 1],
-            description='Filter by items assigned to recipe.',
+                'assigned_only',
+                OpenApiTypes.INT, enum=[0, 1],
+                description='Filter by items assigned to recipe.',
             )
         ]
     )
@@ -125,10 +125,8 @@ class TagViewSet(BassRecipeAttrViewSet):
     serializer_class = serializers.TagSerializer
     queryset = Tag.objects.all()
 
+
 class IngredientViewSet(BassRecipeAttrViewSet):
     """Manage ingredients in the database."""
     serializer_class = serializers.IngredientSerializer
     queryset = Ingredient.objects.all()
-
-    # b9b0e7c0aeb3
-    # ff81d9731c27

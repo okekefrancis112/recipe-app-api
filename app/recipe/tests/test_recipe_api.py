@@ -1,5 +1,5 @@
 """
-Tests for recipe APIs.add
+Tests for recipe APIs.
 """
 from decimal import Decimal
 import tempfile
@@ -24,18 +24,21 @@ from recipe.serializers import (
     RecipeSerializer,
     RecipeDetailSerializer,
     )
-
+# research more on getattr()
 
 
 RECIPES_URL = reverse('recipe:recipe-list')
+
 
 def create_user(**params):
     """Create and return a new user."""
     return get_user_model().objects.create_user(**params)
 
+
 def detail_url(recipe_id):
     """Create and return a recipe detail URL."""
     return reverse('recipe:recipe-detail', args=[recipe_id])
+
 
 def image_upload_url(recipe_id):
     """Create and return a recipe image upload URL."""
@@ -132,11 +135,11 @@ class PrivateRecipeTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipe = Recipe.objects.get(id=res.data['id'])
         for k, v in payload.items():
-            self.assertEqual(getattr(recipe, k), v) #research more on getattr()
+            self.assertEqual(getattr(recipe, k), v)
         self.assertEqual(recipe.user, self.user)
 
     def test_partial_update(self):
-        """Test partial updatevof a recipe."""
+        """Test partial update of a recipe."""
 
         original_link = 'https://example.com/recipe.pdf'
         recipe = create_recipe(
@@ -262,7 +265,7 @@ class PrivateRecipeTests(TestCase):
 
     def test_create_tag_on_update(self):
         """Test creating tag when updating a recipe."""
-        recipe =  create_recipe(user=self.user)
+        recipe = create_recipe(user=self.user)
 
         payload = {'tags': [{'name': 'Lunch'}]}
         url = detail_url(recipe.id)
@@ -275,7 +278,7 @@ class PrivateRecipeTests(TestCase):
     def test_update_recipe_assign_tag(self):
         """Test assigning an existing tag when updating a recipe."""
         tag_breakfast = Tag.objects.create(user=self.user, name='Breakfast')
-        recipe =create_recipe(user=self.user)
+        recipe = create_recipe(user=self.user)
         recipe.tags.add(tag_breakfast)
 
         tag_lunch = Tag.objects.create(user=self.user, name='Lunch')
@@ -348,7 +351,7 @@ class PrivateRecipeTests(TestCase):
 
     def test_create_ingredient_on_update(self):
         """Test creating ingredient when updating a recipe."""
-        recipe =  create_recipe(user=self.user)
+        recipe = create_recipe(user=self.user)
 
         payload = {'ingredients': [{'name': 'Limes'}]}
         url = detail_url(recipe.id)
@@ -396,7 +399,7 @@ class PrivateRecipeTests(TestCase):
         r2.tags.add(tag2)
         r3 = create_recipe(user=self.user, title='Fish and chips')
 
-        params = {'tags':f'{tag1.id}, {tag2.id}'}
+        params = {'tags': f'{tag1.id}, {tag2.id}'}
         res = self.client.get(RECIPES_URL, params)
 
         s1 = RecipeSerializer(r1)
@@ -416,7 +419,7 @@ class PrivateRecipeTests(TestCase):
         r2.ingredients.add(in2)
         r3 = create_recipe(user=self.user, title='Red Lentil Daal')
 
-        params = {'ingredients':f'{in1.id}, {in2.id}'}
+        params = {'ingredients': f'{in1.id}, {in2.id}'}
         res = self.client.get(RECIPES_URL, params)
 
         s1 = RecipeSerializer(r1)
@@ -446,7 +449,7 @@ class ImageUploadTests(TestCase):
         """Test uploading an image to a recipe."""
         url = image_upload_url(self.recipe.id)
         with tempfile.NamedTemporaryFile(suffix='.jpg') as image_file:
-            img =Image.new('RGB', (10, 10))
+            img = Image.new('RGB', (10, 10))
             img.save(image_file, format='JPEG')
             image_file.seek(0)
             payload = {'image': image_file}

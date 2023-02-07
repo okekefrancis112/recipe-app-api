@@ -26,7 +26,6 @@ def create_user(email='user@example.com', password='testpass123'):
     return get_user_model().objects.create_user(email, password)
 
 
-
 class PublicTagsAPITests(TestCase):
     """Test unauthenticated API requests."""
 
@@ -87,7 +86,7 @@ class PrivateTagsTests(TestCase):
 
     def test_delete_tag(self):
         """Test deleting a tag."""
-        tag =  Tag.objects.create(user=self.user, name='Breakfast')
+        tag = Tag.objects.create(user=self.user, name='Breakfast')
 
         url = detail_url(tag.id)
         res = self.client.delete(url)

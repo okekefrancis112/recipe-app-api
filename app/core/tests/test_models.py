@@ -67,9 +67,13 @@ class ModelTests(TestCase):
             user=user,
             title='Sample recipe name',
             time_minutes=5,
-            price=Decimal('5.50'), # It is best practice to use Integer instead of Deceimal when building a production level application.
+            price=Decimal('5.50'),
             description='Sample recipe description.',
         )
+        """
+        It is best practice to use Integer instead of Decimal
+        when building a production level application.
+        """
 
         self.assertEqual(str(recipe), recipe.title)
 
