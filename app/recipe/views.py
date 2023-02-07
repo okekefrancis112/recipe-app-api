@@ -129,3 +129,6 @@ class IngredientViewSet(BassRecipeAttrViewSet):
     """Manage ingredients in the database."""
     serializer_class = serializers.IngredientSerializer
     queryset = Ingredient.objects.all()
+
+    # b9b0e7c0aeb3
+    # ff81d9731c27
